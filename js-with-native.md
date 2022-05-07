@@ -27,9 +27,30 @@
     + 调用iOS：`window.webkit.messageHandlers.方法.postMessage(null)`
 2. <mark>有入参时（未完成，存疑）</mark>
     + 调用Android：`window.别名.方法(入参A, 入参B, ...args)`
-    + 调用iOS：`window.webkit.messageHandlers.方法.postMessage({名称A: 入参A, 名称B: 入参B, ...})`或者`window.webkit.messageHandlers.方法.postMessage([入参A, 入参B, ...args])`。此处需要和iOS同事事先定义好。
+    + 调用iOS：`window.webkit.messageHandlers.方法.postMessage({名称A: 入参A, 名称B: 入参B, ...})`或者`window.webkit.messageHandlers.方法.postMessage([入参A, 入参B, ...args])`。此处需要和iOS同事事先定好。
     > 注意：入参多个的情况，调用iOS时的传参不可像安卓那样，iOS此时只能接收到第一个入参！
     <img src="img/调用iOS方法入参.png" width="100%" />
+
+------
+
+#### Native调用JavaScript
+```JavaScript
+mounted () {
+    // 将要给原生调用的方法挂载到 window 上面
+    window.callJsFunction = this.callJsFunction
+},
+data () {
+    return {
+    	msg: "原本的内容"
+	}
+},
+methods: {
+    callJsFunction (str) {
+        this.msg = "原生调用Js改变了文字" + str
+        return "Js调用成功"
+	}
+}
+```
 
 ------
 
